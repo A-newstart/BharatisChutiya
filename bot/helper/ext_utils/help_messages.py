@@ -25,7 +25,7 @@ YT_HELP_MESSAGE = """
 """
 
 MIRROR_HELP_MESSAGE = """
-<b>To use the commands, follow this format:</b>
+<b>To use the cmds, use this format:</b>
 <code>/{cmd} link options</code> or replying to link </b>
 <code>/{cmd} options</code>
 
@@ -61,10 +61,8 @@ MIRROR_HELP_MESSAGE = """
 
 <b>main:dump/ubuntu.iso</b> or <b>rcl:</b> Treat a path as an rclone download.
 
-
-<b>Note:</b>
-<b>Commands starting with qb are specifically for torrents.</b>
-Some commands may require additional user access or settings.
+<b>Note:Cmds starting with qb are only for torrents.</b>
+Some cmds may require additional user access or settings.
 """
 
 RSS_HELP_MESSAGE = """
