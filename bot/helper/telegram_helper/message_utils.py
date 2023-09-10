@@ -251,7 +251,7 @@ async def update_all_messages(force=False):
         for chat_id in list(status_reply_dict.keys()):
             status_reply_dict[chat_id][1] = time()
     async with download_dict_lock:
-        photo, msg, buttons = await sync_to_async(get_readable_message)
+        msg, buttons = await sync_to_async(get_readable_message)
     if msg is None:
         return
     async with status_reply_dict_lock:
@@ -267,7 +267,7 @@ async def update_all_messages(force=False):
 
 async def sendStatusMessage(msg):
     async with download_dict_lock:
-        photo, progress, buttons = await sync_to_async(get_readable_message)
+        progress, buttons = await sync_to_async(get_readable_message)
     if progress is None:
         return
     async with status_reply_dict_lock:
