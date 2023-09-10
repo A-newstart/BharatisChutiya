@@ -137,6 +137,10 @@ async def editMessage(message, text, buttons=None, photo=None):
                     return await message.edit_media(InputMediaPhoto(photo, text), reply_markup=buttons)
                     return await message.edit_caption(caption=text, reply_markup=buttons)
             await message.edit(text=text, disable_web_page_preview=True, reply_markup=buttons)
+                    continue
+                except IndexError:
+                    pass
+                
     except FloodWait as f:
         LOGGER.warning(str(f))
         await sleep(f.value * 1.2)
