@@ -129,9 +129,13 @@ async def sendMultiMessage(chat_ids, text, buttons=None, photo=None):
 async def editMessage(message, text, buttons=None, photo=None):
     try:
         if message.media:
+            try:
             if photo:
-                return await message.edit_media(InputMediaPhoto(photo, text), reply_markup=buttons)
-            return await message.edit_caption(caption=text, reply_markup=buttons)
+                try:
+                    if photo == 'IMAGES':
+                        photo = rchoice(config_dict['IMAGES'])
+                    return await message.edit_media(InputMediaPhoto(photo, text), reply_markup=buttons)
+                    return await message.edit_caption(caption=text, reply_markup=buttons)
         await message.edit(text=text, disable_web_page_preview=True, reply_markup=buttons)
     except FloodWait as f:
         LOGGER.warning(str(f))
