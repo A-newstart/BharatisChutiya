@@ -174,10 +174,10 @@ def get_readable_message():
             msg += f"\n⌑ User: {source(download)}"
             msg += f"\n⌑ Speed: {download.speed()}"
             msg += f"\n⌑ Estimated: {download.eta()}"'''
-            msg += f"\n⌑ <code>Progress </code>» {download.processed_bytes()} of {download.size()}"
+            msg += f"\n⌑ <code>Progress </code>»{download.processed_bytes()} of {download.size()}"
             msg += f"\n⌑ <code>Speed    </code>»{download.speed()}"
             msg += f"\n⌑ <code>User     </code>»{source(download)}"
-            msg += f"\n⌑ <code>ETA      </code>» {download.eta()}"
+            msg += f"\n⌑ <code>ETA      </code>»{download.eta()}"
             #msg += f"\n⌑ <code>Active   </code>» {get_readable_time(time() - self.message.date.timestamp())}"#{get_readable_time(elapsed)}"
            # msg += f"\n⌑ <code>Engine   </code>» {download.engine}"
 
@@ -227,7 +227,7 @@ def get_readable_message():
         buttons.ibutton("⌦", "status nex")
         button = buttons.build_menu(3)
 
-    msg += "╭──────────────────────╮"    
+    msg += "\n╭──────────────────────╮"    
     msg += "\n│        JOIN NOW : <a href='https://t.me/X_leechers'>𝗫 leechers</a>             │"
     msg += "\n╰──────────────────────╯"
     msg += f"\n <b>DISK</b>: <code>{get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}</code>"
