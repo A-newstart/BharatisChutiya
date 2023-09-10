@@ -248,15 +248,15 @@ async def turn_page(data):
 
 
 def get_readable_time(seconds):
-    periods = [('millennium', 31536000000), ('century', 3153600000), ('decade', 315360000), ('year', 31536000), ('month', 2592000), ('week', 604800), ('day', 86400), ('hour', 3600), ('minute', 60), ('second', 1)]
+    periods = [('millennium', 31536000000), ('century', 3153600000), ('decade', 315360000), ('year', 31536000), ('month', 2592000), ('w', 604800), ('d', 86400), ('h', 3600), ('m', 60), ('s', 1)]
     result = ''
     for period_name, period_seconds in periods:
         if seconds >= period_seconds:
             period_value, seconds = divmod(seconds, period_seconds)
             plural_suffix = 's' if period_value > 1 else ''
-            result += f'{int(period_value)} {period_name}{plural_suffix} '
-            if len(result.split()) == 2:
-                break
+            result += f'{int(period_value)}{period_name}{plural_suffix}'
+            #if len(result.split()) == 2:
+            #    break
     return result.strip()
 
 def is_magnet(url):
