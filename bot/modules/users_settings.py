@@ -118,7 +118,8 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
 
         buttons.ibutton("Leech Caption", f"userset {user_id} lcaption")
         lcaption = user_dict.get('lcaption', 'Not Exists')
-
+        capmsg = "Exists" if await aiopath.exists(lcaption) else "Not Exists"
+        
         buttons.ibutton("Leech Dump", f"userset {user_id} ldump")
         ldump = 'Not Exists' if (val:=user_dict.get('ldump', '')) == '' else val
 
@@ -128,7 +129,7 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
         text += f'<b>• Leech Split Size:</b> <code>{split_size}</code>\n'
         text += f'<b>• Equal Splits:</b> {equal_splits}\n'
         text += f'<b>• Media Group:</b> {media_group}\n'
-        text += f'<b>• Leech Caption:</b> <code>{escape(lcaption)}</code>\n'
+        text += f'<b>• Leech Caption:</b> <code>{capmsg}</code>\n'
         text += f'<b>• Leech Dump:</b> <code>{ldump}</code>\n'
         text += f'<b>• MediaInfo Mode:</b> <code>{mediainfo}</code>'
 
