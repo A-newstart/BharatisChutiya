@@ -187,12 +187,12 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
 
 async def update_user_settings(query, key=None, edit_type=None, edit_mode=None, msg=None, sdirect=False):
     msg, button = await get_user_settings(msg.from_user if sdirect else query.from_user, key, edit_type, edit_mode)
-    await editMessage(query if sdirect else query.message, msg, button)
+    await editMessage(query if sdirect else query.message, msg, button, photo)
 
 @new_thread
 async def user_settings(client, message):
     msg, button = await get_user_settings(message.from_user)
-    x = await sendMessage(message, msg, button)
+    x = await sendMessage(message, msg, button, photo)
     await five_minute_del(message)
     await deleteMessage(x)
 
