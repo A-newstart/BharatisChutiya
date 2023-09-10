@@ -518,7 +518,7 @@ async def edit_user_settings(client, query):
         buttons.ibutton('Yes', f"userset {user_id} reset_now y")
         buttons.ibutton('No', f"userset {user_id} reset_now n")
         buttons.ibutton("Close", f"userset {user_id} close", "footer")
-        await editMessage(message, 'Do you want to Reset Settings ?', buttons.build_menu(2))
+        await editMessage(message, 'Do you want to Reset Settings ?', buttons.build_menu(2), photo='IMAGES')
     elif data[2] == 'reset_now':
         handler_dict[user_id] = False
         if data[3] == 'n':
@@ -548,7 +548,7 @@ async def edit_user_settings(client, query):
             await DbManager().update_user_data(user_id)
             await DbManager().update_user_doc(user_id, 'thumb')
             await DbManager().update_user_doc(user_id, 'rclone')
-        await editMessage(message, f'Data Reset for {user_id}')
+        await editMessage(message, f'Data Reset for {user_id}', photo='IMAGES')
     else:
         handler_dict[user_id] = False
         await query.answer()
@@ -587,7 +587,7 @@ async def send_users_settings(client, message):
                 ofile.name = 'users_settings.txt'
                 await sendFile(message, ofile)
         else:
-            await sendMessage(message, msg, button)
+            await sendMessage(message, msg, button, photo='IMAGES')
     elif int(userid) in user_data:
         msg = f'{await getUserInfo(client, userid)} ( <code>{userid}</code> ):'
         if data := user_data[int(userid)]:
@@ -602,9 +602,9 @@ async def send_users_settings(client, message):
         else:
             msg += '\nThis User has not Saved anything.'
             button = None
-        await sendMessage(message, msg, button)
+        await sendMessage(message, msg, button, photo='IMAGES')
     else:
-        await sendMessage(message, f'{userid} have not saved anything..')
+        await sendMessage(message, f'{userid} have not saved anything..', photo='IMAGES')
 
 
 bot.add_handler(MessageHandler(send_users_settings, filters=command(
