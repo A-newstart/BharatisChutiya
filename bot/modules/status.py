@@ -16,13 +16,13 @@ from bot.helper.ext_utils.bot_utils import get_readable_file_size, get_readable_
 async def mirror_status(_, message, photo=none):
     async with download_dict_lock:
         count = len(download_dict)
-    if count == 0:
-      currentTime = get_readable_time(time() - botStartTime)
-      free = get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)
-      quote = Quote.print().split('―', 1)[0].strip().replace("“", "").replace("”", "")
-      msg = f'<b>{quote}</b>\n\n'
-      msg += 'No Active Downloads !\n'
-      msg += f"\n<b>❅ Bot uptime</b>: {currentTime}"
+if count == 0:
+    currentTime = get_readable_time(time() - botStartTime)
+    free = get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)
+    quote = Quote.print().split('―', 1)[0].strip().replace("“", "").replace("”", "")
+    msg = f'<b>{quote}</b>\n\n'
+    msg += 'No Active Downloads !\n'
+    msg += f"\n<b>❅ Bot uptime</b>: {currentTime}"
     if not photo:
         reply_message = await sendMessage(message, msg)
     elif photo:
