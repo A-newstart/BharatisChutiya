@@ -23,19 +23,11 @@ if count == 0:
     msg = f'<b>{quote}</b>\n\n'
     msg += 'No Active Downloads !\n'
     msg += f"\n<b>❅ Bot uptime</b>: {currentTime}"
-    if not photo:
-        reply_message = await sendMessage(message, msg)
-        await deleteMessage(message)
-        await one_minute_del(reply_message)
-    elif photo:
-        try:
-            if photo == 'IMAGES':
-                photo = rchoice(config_dict['IMAGES'])
-            sent = await bot.send_photo(message, photo=photo, caption=msg, disable_notification=True)
-        except IndexError:
-            pass
     
-    
+    reply_message = await sendMessage(message, msg)
+    await deleteMessage(message)
+    await one_minute_del(reply_message)
+               
 else:
     await sendStatusMessage(message)
     await deleteMessage(message)
