@@ -177,7 +177,7 @@ def get_readable_message():
             msg += f"\n⌑ <code>Progress </code>» {download.processed_bytes()} of {download.size()}"
             msg += f"\n⌑ <code>Speed    </code>»{download.speed()}"
             msg += f"\n⌑ <code>ETA      </code>» {download.eta()}"
-            msg += f"\n⌑ <code>Active   </code>» {get_readable_time(time() - self.message.date.timestamp())}"#{get_readable_time(elapsed)}"
+            #msg += f"\n⌑ <code>Active   </code>» {get_readable_time(time() - self.message.date.timestamp())}"#{get_readable_time(elapsed)}"
             msg += f"\n⌑ <code>Engine   </code>» {download.engine}"
 
             if hasattr(download, 'playList'):
@@ -201,7 +201,7 @@ def get_readable_message():
             msg += f"\n⌑ <code>Time     </code>» {download.seeding_time()}"
         else:
             msg += f"\n⌑ <code>Size     </code>» {download.size()}"
-            msg += f"\n⌑ <code>download.extra_details  </code>»{get_readable_time(time() - download.message.date.timestamp())}"
+            msg += f"\n⌑ <code>Elapsed  </code>»{get_readable_time(time() - download.message.date.timestamp())}"
             msg += f"\n⌑ <code>Mode     </code>»{download.upload_details['mode']}"
             msg += f"\n⌑ <code>cancel   </code>» /{BotCommands.CancelMirror}_{download.gid()[:8]}\n\n"
     if len(msg) == 0:
