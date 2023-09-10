@@ -216,7 +216,7 @@ async def _mirror_leech(client, message, isQbit=False, isLeech=False, sameDir=No
         if error_button is not None:
             error_button = error_button.build_menu(2)
         await delete_links(message)
-        force_m = await sendMessage(message, final_msg, error_button, photo='IMAGES')
+        force_m = await sendMessage(message, final_msg, error_button)
         await five_minute_del(force_m)
         return
 
