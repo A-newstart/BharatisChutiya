@@ -176,9 +176,10 @@ def get_readable_message():
             msg += f"\n⌑ Estimated: {download.eta()}"'''
             msg += f"\n⌑ <code>Progress </code>» {download.processed_bytes()} of {download.size()}"
             msg += f"\n⌑ <code>Speed    </code>»{download.speed()}"
+            msg += f"\n⌑ <code>User     </code>»{source(download)}"
             msg += f"\n⌑ <code>ETA      </code>» {download.eta()}"
             #msg += f"\n⌑ <code>Active   </code>» {get_readable_time(time() - self.message.date.timestamp())}"#{get_readable_time(elapsed)}"
-            msg += f"\n⌑ <code>Engine   </code>» {download.engine}"
+           # msg += f"\n⌑ <code>Engine   </code>» {download.engine}"
 
             if hasattr(download, 'playList'):
                 try:
