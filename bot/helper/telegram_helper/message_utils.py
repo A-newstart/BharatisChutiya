@@ -140,9 +140,10 @@ async def editMessage(message, text, buttons=None, photo=None):
                   except IndexError:
                       pass
                 await message.edit(text=text, disable_web_page_preview=True, reply_markup=buttons)
+        
             except IndexError:
                       pass          
-                
+        return await message.edit(text=text, disable_web_page_preview=True, reply_markup=buttons)        
     except FloodWait as f:
         LOGGER.warning(str(f))
         await sleep(f.value * 1.2)
