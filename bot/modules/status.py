@@ -25,6 +25,8 @@ if count == 0:
     msg += f"\n<b>❅ Bot uptime</b>: {currentTime}"
     if not photo:
         reply_message = await sendMessage(message, msg)
+        await deleteMessage(message)
+        await one_minute_del(reply_message)
     elif photo:
         try:
             if photo == 'IMAGES':
@@ -33,8 +35,7 @@ if count == 0:
         except IndexError:
             pass
     
-    await deleteMessage(message)
-    await one_minute_del(reply_message)
+    
 else:
     await sendStatusMessage(message)
     await deleteMessage(message)
