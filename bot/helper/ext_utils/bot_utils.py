@@ -144,16 +144,16 @@ def get_progress_bar_string(pct):
     if isinstance(pct, str):
         pct = float(pct.strip('%'))
     p = min(max(pct, 0), 100)
-    cFull = int(p // 10)
-    p_str = '■' * cFull
-    p_str += '□' * (10 - cFull)
-    return p_str
+    cFull = int(p * 15 / 100)
+    p_str = '▰' * cFull
+    p_str += '▱' * (15 - cFull)
+    return f"{p_str}"
     
 def source(self):
     return (sender_chat.title if (sender_chat := self.message.sender_chat) else self.message.from_user.username or self.message.from_user.id)
 
 def get_readable_message():
-    msg = '<b>Powered by @powerleech</b>\n\n'
+    msg = '<b>Powered by <a href='https://t.me/powerleech'>POWER LEECH</a> </b>\n\n'
     button = None
     tasks = len(download_dict)
     currentTime = get_readable_time(time() - botStartTime)
@@ -166,30 +166,44 @@ def get_readable_message():
         globals()['STATUS_START'] = STATUS_LIMIT * (PAGES - 1)
         globals()['PAGE_NO'] = PAGES
     for download in list(download_dict.values())[STATUS_START:STATUS_LIMIT+STATUS_START]:
-        msg += f"💾Filename: {escape(f'{download.name()}')}\n\n"
-        msg += f"<b>⚡{download.status()}...</b>"
+        msg += f"<b>File Name</b> » {escape(f'{download.name()}')}\n\n"
+        msg += f"<b>➤{download.status()}...</b>"
         if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
-            msg += f"\n⚙️[{get_progress_bar_string(download.progress())} {download.progress()}]"
-            msg += f"\n\n🔰 Progress: {download.processed_bytes()} of {download.size()}"
-            msg += f"\n🔰User: {source(download)}"
-            msg += f"\n🔰Speed: {download.speed()}"
-            msg += f'\n🔰Estimated: {download.eta()}'
+            msg += f"\n{get_progress_bar_string(download.progress())} » {download.progress()}"
+            '''msg += f"\n\n⌑ Progress: {download.processed_bytes()} of {download.size()}"
+            msg += f"\n⌑ User: {source(download)}"
+            msg += f"\n⌑ Speed: {download.speed()}"
+            msg += f'\n⌑ Estimated: {download.eta()}''''
+            msg += f"\n⌑ <code>Progress </code>» {download.processed_bytes()} of {download.size()}"
+            msg += f"\n⌑ <code>Speed    </code>»{download.speed()}"
+            msg += f"\n⌑ <code>ETA      </code>» {download.eta()}"
+            msg += f"\n⌑ <code>Active   </code>» {get_readable_time(time() - self.message.date.timestamp())}"#{get_readable_time(elapsed)}"
+            msg += f"\n⌑ <code>Engine   </code>» {download.engine}"
+
+            if hasattr(download, 'playList'):
+                try:
+                    if playlist:=download.playList():
+                        msg += f"\n⌑ <code>YT Count </code>» {playlist}"
+                except:
+                    pass
+
             if hasattr(download, 'seeders_num'):
                 try:
-                    msg += f"\n🔰Seeders: {download.seeders_num()} | Leechers: {download.leechers_num()}"
+                    msg += f"\n⌑ <code>Seeders  </code>» {download.seeders_num()}"
+                    msg += f"\n⌑ <code>Leechers </code>» {download.leechers_num()}"
                 except:
                     pass
         elif download.status() == MirrorStatus.STATUS_SEEDING:
-            msg += f"\n🔰Size: {download.size()}"
-            msg += f"\n🔰Speed: {download.upload_speed()}"
-            msg += f"\n🔰Uploaded: {download.uploaded_bytes()}"
-            msg += f"\n🔰Ratio: {download.ratio()}"
-            msg += f"\n🔰Time: {download.seeding_time()}"
+            msg += f"\n⌑ <code>Size     </code>» {download.size()}"
+            msg += f"\n⌑ <code>Speed    </code>» {download.upload_speed()}"
+            msg += f"\n⌑ <code>Uploaded </code>» {download.uploaded_bytes()}"
+            msg += f"\n⌑ <code>Ratio    </code>» {download.ratio()}"
+            msg += f"\n⌑ <code>Time     </code>» {download.seeding_time()}"
         else:
-            msg += f"\n🔰Size: {download.size()}"
-        msg += f"\n🔰Elapsed: {get_readable_time(time() - download.message.date.timestamp())}"
-        msg += f"\n🔰Mode: {download.upload_details['mode']}"
-        msg += f"\n❌ cancel: /{BotCommands.CancelMirror}_{download.gid()[:8]}\n\n"
+            msg += f"\n⌑ <code>Size     </code>» {download.size()}"
+            msg += f"\n⌑ <code>download.extra_details  </code>»{get_readable_time(time() - download.message.date.timestamp())}"
+            msg += f"\n⌑ <code>Mode     </code>»{download.upload_details['mode']}"
+            msg += f"\n⌑ <code>cancel   </code>» /{BotCommands.CancelMirror}_{download.gid()[:8]}\n\n"
     if len(msg) == 0:
         return None, None
     dl_speed = 0
@@ -202,16 +216,27 @@ def get_readable_message():
                 up_speed += text_size_to_bytes(download.speed())
             elif tstatus == MirrorStatus.STATUS_SEEDING:
                 up_speed += text_size_to_bytes(download.upload_speed())
+    if tasks <= STATUS_LIMIT:
+        buttons = ButtonMaker()
+        buttons.ibutton("BOT INFO", "stats")
+        button = buttons.build_menu(1)            
     if tasks > STATUS_LIMIT:
         buttons = ButtonMaker()
-        buttons.ibutton("Prev", "status pre")
-        buttons.ibutton(f"{PAGE_NO}/{PAGES}", "status ref")
-        buttons.ibutton("Next", "status nex")
+        buttons.ibutton("⌫", "status pre")
+        buttons.ibutton("⌦", "status nex")
         button = buttons.build_menu(3)
-    msg += f"<b>❅ Tasks</b>: {tasks}{bmax_task}"
-    msg += f"\n<b>❅ Bot uptime</b>: {currentTime}"
-    msg += f"\n<b>❅ Uploading speed</b>: {get_readable_file_size(up_speed)}/s"
-    msg += f"\n<b>❅ Downloading speed</b>: {get_readable_file_size(dl_speed)}/s"
+
+    msg += "╭──────────────────────╮"    
+    msg += "\n│        JOIN NOW : <a href='https://t.me/X_leechers'>𝗫 leechers</a>             │"
+    msg += "\n╰──────────────────────╯"
+    msg += f"\n <b>DISK</b>: <code>{get_readable_file_size(disk_usage(config_dict['DOWNLOAD_DIR']).free)}</code>"
+    msg += f" | <b>UPTM</b>: <code>{get_readable_time(time() - botStartTime)}</code>"
+    msg += f"\n <b>DL</b>: <code>{get_readable_file_size(dl_speed)}/s</code>"
+    msg += f"  |  <b>UL</b>: <code>{get_readable_file_size(up_speed)}/s</code>"
+    remaining_time = 86400 - (time() - botStartTime)
+    res_time = '⚠️ ANYTIME ⚠️' if remaining_time <= 0 else get_readable_time(remaining_time)
+    if remaining_time <= 3600:
+        msg += f"\n<b>Bot Restarts In:</b> <code>{res_time}</code>"
     return msg, button
 
 
