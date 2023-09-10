@@ -153,7 +153,8 @@ def source(self):
     return (sender_chat.title if (sender_chat := self.message.sender_chat) else self.message.from_user.username or self.message.from_user.id)
 
 def get_readable_message():
-    msg = '<b>Powered by <a href=\'https://t.me/powerleech\'>POWER LEECH</a> </b>\n\n'
+    #msg = '<b>Powered by <a href=\'https://t.me/powerleech\'>POWER LEECH</a> </b>\n\n'
+    msg = ''
     button = None
     tasks = len(download_dict)
     currentTime = get_readable_time(time() - botStartTime)
@@ -227,8 +228,8 @@ def get_readable_message():
         buttons.ibutton("⌦", "status nex")
         button = buttons.build_menu(3)
 
-    msg += "\n╭──────────────────────╮"    
-    msg += "\n│        JOIN NOW : <a href='https://t.me/X_leechers'>𝗫 leechers</a>             │"
+    msg += "\n\n\n╭──────────────────────╮"    
+    msg += "\n│        JOIN NOW : <a href='https://t.me/POWER LEECH'>POWER LEECH</a>             │"
     msg += "\n╰──────────────────────╯"
     msg += f"\n <b>DISK</b>: <code>{get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}</code>"
     msg += f" | <b>UPTM</b>: <code>{get_readable_time(time() - botStartTime)}</code>"
