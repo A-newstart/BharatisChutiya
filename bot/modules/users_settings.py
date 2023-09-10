@@ -159,8 +159,8 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
             else:
                 buttons.ibutton("Enable Media Group", f"userset {user_id} mgroup", "header")
         elif key in ['prefix', 'remname', 'suffix', 'lcaption', 'ldump']:
-            set_exist = 'Not Exists' if (val:=user_dict.get(key, '')) == '' else val
-            text += f"<b>Filename {fname_dict[key]} :</b> {set_exist}\n\n"
+            set_exist = 'Not Exists' if (val:=user_dict.get(key, '')) == '' else f'\n{val}'
+            text += f"<b>Leech {fname_dict[key]} :</b> {set_exist}\n\n"
         elif key == 'user_tds':
             set_exist = len(val) if (val:=user_dict.get(key, False)) else 'Not Exists'
             tds_mode = "Enabled" if user_dict.get('td_mode') else "Disabled"
