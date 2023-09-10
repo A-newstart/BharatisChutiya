@@ -496,7 +496,7 @@ Timeout: 60 sec'''
 
 async def update_buttons(message, key=None, edit_type=None, edit_mode=None):
     msg, button = await get_buttons(key, edit_type, edit_mode, message)
-    await editMessage(message, msg, button)
+    await editMessage(message, msg, button, photo='IMAGES')
 
 
 async def edit_variable(_, message, pre_message, key):
