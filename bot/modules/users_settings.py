@@ -26,7 +26,7 @@ desp_dict = {'rcc': ['RClone is a command-line program to sync files and directo
             'prefix': ['Filename Prefix is the Front Part attacted with the Filename of the Leech Files.', 'Send Leech Filename Prefix. Timeout: 60 sec'],
             'suffix': ['Filename Suffix is the End Part attached with the Filename of the Leech Files', 'Send Leech Filename Suffix. Timeout: 60 sec'],
             'remname': ['Filename Remname is combination of Regex(s) used for removing or manipulating Filename of the Leech Files', 'Send Leech Filename Remname. Timeout: 60 sec'],
-            'lcaption': ['Leech Caption is the Custom Caption on the Leech Files Uploaded by the bot', 'Send Leech j. You can add HTML tags Timeout: 60 sec'],
+            'lcaption': ['Leech Caption is the Custom Caption on the Leech Files Uploaded by the bot', 'Send Leech caption. You can add HTML tags Timeout: 60 sec'],
             'ldump': ['Leech Files User Dump for Personal Use as a Storage.', 'Send Leech Dump Channel ID. Timeout: 60 sec'],
             'thumb': ['Custom Thumbnail to appear on the Leeched files uploaded by the bot', 'Send a photo to save it as custom thumbnail. Timeout: 60 sec'],
             'yt_opt': ['YT-DLP Options is the Custom Quality for the extraction of videos from the yt-dlp supported sites.', 'Send YT-DLP Options. Timeout: 60 sec\nFormat: key:value|key:value|key:value.\nExample: format:bv*+mergeall[vcodec=none]|nocheckcertificate:True\nCheck all yt-dlp api options from this <a href="https://github.com/yt-dlp/yt-dlp/blob/master/yt_dlp/YoutubeDL.py#L184">FILE</a> or use this <a href="https://t.me/mltb_official/177">script</a> to convert cli arguments to api options.'],
@@ -49,7 +49,7 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
     user_id = from_user.id
     name = from_user.mention(style="html")
     buttons = ButtonMaker()
-    tumbpath = f"Thumbnails/{user_id}.jpg"
+    thumbpath = f"Thumbnails/{user_id}.jpg"
     rclone_path = f'tanha/{user_id}.conf'
     user_dict = user_data.get(user_id, {})
     if key is None:
@@ -188,10 +188,10 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
 async def update_user_settings(query, key=None, edit_type=None, edit_mode=None, msg=None, sdirect=False):
     msg, button = await get_user_settings(msg.from_user if sdirect else query.from_user, key, edit_type, edit_mode)
     user_id = query.from_user.id
-    #thumbpath = f"Thumbnails/{user_id}.jpg"
-    #if not ospath.exists(thumbpath):
-       # thumbpath = 'IMAGES'
-    await editMessage(query if sdirect else query.message, msg, button,photo='IMAGES') #photo=thumbpath)
+    thumbpath = f"Thumbnails/{user_id}.jpg"
+    if not ospath.exists(thumbpath):
+        thumbpath = 'IMAGES'
+    await editMessage(query if sdirect else query.message, msg, button, photo=thumbpath)
 
 @new_thread
 async def user_settings(client, message):
