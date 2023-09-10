@@ -13,7 +13,7 @@ from bot.helper.telegram_helper.message_utils import sendMessage, deleteMessage,
 from bot.helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time, turn_page, setInterval, new_task
 
 @new_task
-async def mirror_status(_, message, photo=none):
+async def mirror_status(_, message, photo=None):
     async with download_dict_lock:
         count = len(download_dict)
 if count == 0:
