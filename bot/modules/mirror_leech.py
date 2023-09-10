@@ -197,7 +197,7 @@ async def _mirror_leech(client, message, isQbit=False, isLeech=False, sameDir=No
             dottorrent = True
 
     if not is_url(link) and not is_magnet(link) and not await aiopath.exists(link) and not is_rclone_path(link) and file_ is None:
-        reply_message = await sendMessage(message, MIRROR_HELP_MESSAGE)
+        reply_message = await sendMessage(message, MIRROR_HELP_MESSAGE, photo='IMAGES')
         await deleteMessage(message)
         await one_minute_del(reply_message)
         return
@@ -216,7 +216,7 @@ async def _mirror_leech(client, message, isQbit=False, isLeech=False, sameDir=No
         if error_button is not None:
             error_button = error_button.build_menu(2)
         await delete_links(message)
-        force_m = await sendMessage(message, final_msg, error_button)
+        force_m = await sendMessage(message, final_msg, error_button, photo='IMAGES')
         await five_minute_del(force_m)
         return
 

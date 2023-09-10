@@ -168,7 +168,7 @@ async def gdcloneNode(message, link, listen_up):
         LOGGER.info(f'Cloning Done: {name}')
         await listener.onUploadComplete(link, size, files, folders, mime_type, name)
     else:
-        reply_message = await sendMessage(message, CLONE_HELP_MESSAGE)
+        reply_message = await sendMessage(message, CLONE_HELP_MESSAGE, photo='IMAGES')
         await deleteMessage(message)
         await one_minute_del(reply_message)
 
@@ -225,7 +225,7 @@ async def clone(client, message):
         drive_id = GoogleDriveHelper.getIdFromUrl(drive_id)
 
     if len(link) == 0:
-        reply_message = await sendMessage(message, CLONE_HELP_MESSAGE)
+        reply_message = await sendMessage(message, CLONE_HELP_MESSAGE, photo='IMAGES')
         await deleteMessage(message)
         await one_minute_del(reply_message)
         return

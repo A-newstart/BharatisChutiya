@@ -359,7 +359,7 @@ async def _ytdl(client, message, isLeech=False, sameDir=None, bulk=[]):
         link = reply_to.text.split('\n', 1)[0].strip()
 
     if not is_url(link):
-        reply_message = await sendMessage(message, YT_HELP_MESSAGE)
+        reply_message = await sendMessage(message, YT_HELP_MESSAGE, photo='IMAGES')
         await deleteMessage(message)
         await one_minute_del(reply_message)
         return

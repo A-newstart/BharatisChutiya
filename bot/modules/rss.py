@@ -391,7 +391,7 @@ async def rssListener(client, query):
         buttons.ibutton("Back", f"rss back {user_id}")
         buttons.ibutton("Close", f"rss close {user_id}")
         button = buttons.build_menu(2)
-        await editMessage(message, RSS_HELP_MESSAGE, button)
+        await editMessage(message, RSS_HELP_MESSAGE, button, photo='IMAGES')
         pfunc = partial(rssSub, pre_event=query)
         await event_handler(client, query, pfunc)
     elif data[1] == 'list':
