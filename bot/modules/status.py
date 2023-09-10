@@ -4,6 +4,7 @@ from pyrogram.filters import command, regex
 from psutil import cpu_percent, virtual_memory, disk_usage
 from time import time
 from quoters import Quote
+from bot import config_dict
 
 from bot import status_reply_dict_lock, download_dict, download_dict_lock, botStartTime, Interval, config_dict, bot
 from bot.helper.telegram_helper.filters import CustomFilters
@@ -12,28 +13,36 @@ from bot.helper.telegram_helper.message_utils import sendMessage, deleteMessage,
 from bot.helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time, turn_page, setInterval, new_task
 
 @new_task
-async def mirror_status(_, message):
+async def mirror_status(_, message, photo=none):
     async with download_dict_lock:
         count = len(download_dict)
     if count == 0:
-        currentTime = get_readable_time(time() - botStartTime)
-        free = get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)
-        quote = Quote.print().split('―', 1)[0].strip().replace("“", "").replace("”", "")
-        msg = f'<b>{quote}</b>\n\n'
-        msg += 'No Active Downloads !\n'
-        msg += f"\n<b>❅ Bot uptime</b>: {currentTime}"
+    currentTime = get_readable_time(time() - botStartTime)
+    free = get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)
+    quote = Quote.print().split('―', 1)[0].strip().replace("“", "").replace("”", "")
+    msg = f'<b>{quote}</b>\n\n'
+    msg += 'No Active Downloads !\n'
+    msg += f"\n<b>❅ Bot uptime</b>: {currentTime}"
+    if not photo:
         reply_message = await sendMessage(message, msg)
-        await deleteMessage(message)
-        await one_minute_del(reply_message)
-    else:
-        await sendStatusMessage(message)
-        await deleteMessage(message)
-        async with status_reply_dict_lock:
-            if Interval:
-                Interval[0].cancel()
-                Interval.clear()
-                Interval.append(setInterval(1, update_all_messages))
-
+    elif photo:
+        try:
+            if photo == 'IMAGES':
+                photo = rchoice(config_dict['IMAGES'])
+            sent = await bot.send_photo(message, photo=photo, caption=msg, disable_notification=True)
+        except IndexError:
+            pass
+    
+    await deleteMessage(message)
+    await one_minute_del(reply_message)
+else:
+    await sendStatusMessage(message)
+    await deleteMessage(message)
+    async with status_reply_dict_lock:
+        if Interval:
+            Interval[0].cancel()
+            Interval.clear()
+            Interval.append(setInterval(1, update_all_messages))
 
 @new_task
 async def status_pages(_, query):
