@@ -173,7 +173,7 @@ def get_readable_message():
             '''msg += f"\n\n⌑ Progress: {download.processed_bytes()} of {download.size()}"
             msg += f"\n⌑ User: {source(download)}"
             msg += f"\n⌑ Speed: {download.speed()}"
-            msg += f'\n⌑ Estimated: {download.eta()}''''
+            msg += f"\n⌑ Estimated: {download.eta()}"'''
             msg += f"\n⌑ <code>Progress </code>» {download.processed_bytes()} of {download.size()}"
             msg += f"\n⌑ <code>Speed    </code>»{download.speed()}"
             msg += f"\n⌑ <code>ETA      </code>» {download.eta()}"
