@@ -138,7 +138,7 @@ class MirrorLeechListener:
 
 <code>❂ Mode   :</code> {self.upload_details['mode']}
 <code>❂ Task by:</code> {self.tag}
-<code>❂ User ID: </code><code>{self.message.from_user.id}</code>
+<code>❂ User ID:</code><code>{self.message.from_user.id}</code>
 """
             self.linkslogmsg = await sendCustomMsg(config_dict['LEECH_LOG_ID'], msg + source)
         user_dict = user_data.get(self.message.from_user.id, {})
@@ -412,19 +412,19 @@ class MirrorLeechListener:
         user_id = self.message.from_user.id
         name, _ = await format_filename(name, user_id, isMirror=not self.isLeech)
         user_dict = user_data.get(user_id, {})
-        msg = f'NAME : <b>{escape(name)}</b>\n\n'
-        msg += f'<code>❂ Size     : </code>{get_readable_file_size(size)}\n'
-        msg += f'<code>❂ Elapsed  : </code>{get_readable_time(time() - self.message.date.timestamp())}\n'
-        msg += f'<code>❂ Mode     : </code>{self.upload_details["mode"]}\n'
+        msg = f'NAME : <code>{escape(name)}</code>\n\n'
+        msg += f'<code>❂ Size           :</code>{get_readable_file_size(size)}\n'
+        msg += f'<code>❂ Elapsed        :</code>{get_readable_time(time() - self.message.date.timestamp())}\n'
+        msg += f'<code>❂ Mode           :</code>{self.upload_details["mode"]}\n'
         lmsg = f'<code>Files are sent. Access via links</code>'
         LOGGER.info(f'Task Done: {name}')
         buttons = ButtonMaker()
         if self.isLeech:
-            msg += f'<code>❂ Total files    : </code>{folders}\n'
+            msg += f'<code>❂ Total files    :</code>{folders}\n'
             if mime_type != 0:
-                msg += f'<code>❂ Corrupted files: </code>{mime_type}\n'
-            msg += f'<code>❂ Leeched by     : </code>{self.tag}\n'
-            msg += f'<code>❂ User ID        : </code><code>{self.message.from_user.id}</code>\n\n'
+                msg += f'<code>❂ Corrupted files:</code>{mime_type}\n'
+        msg += f'<code>❂ Leeched by     :</code>{self.tag}\n'
+            msg += f'<code>❂ User ID        :</code><code>{self.message.from_user.id}</code>\n\n'
             if not files:
                 if self.isPrivate:
                     msg += '<code>Files are not sent for unknown reason</code>'
