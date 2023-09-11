@@ -567,7 +567,7 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
 
     if message.reply_to_message and message.reply_to_message.photo:
         photo = message.reply_to_message.photo
-        photo_file = await photo.download()
+        photo_file = await message.download()
     else:
         await message.reply("Please reply to a message with a photo.")
         return
