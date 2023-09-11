@@ -247,7 +247,7 @@ def get_readable_message():
 async def fstats(_, query):
     cpup = cpu_percent(interval=1)
     ramp = virtual_memory().percent
-    disk = disk_usage(config_dict["DOWNLOAD_DIR"]).percent
+    disk = get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)
     totl = len(download_dict)
     traf = get_readable_file_size(net_io_counters().bytes_sent + net_io_counters().bytes_recv)
     free = max(config_dict['QUEUE_ALL'] - totl, 0) if config_dict['QUEUE_ALL'] else '∞'
