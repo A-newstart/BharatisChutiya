@@ -18,7 +18,7 @@ from functools import partial, wraps
 from concurrent.futures import ThreadPoolExecutor
 
 from aiohttp import ClientSession as aioClientSession
-from psutil import virtual_memory, cpu_percent, disk_usage
+from psutil import virtual_memory, cpu_percent, disk_usage, net_io_counters
 from requests import get as rget
 from mega import MegaApi
 from pyrogram.enums import ChatType
