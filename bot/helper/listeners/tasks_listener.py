@@ -420,7 +420,7 @@ class MirrorLeechListener:
         LOGGER.info(f'Task Done: {name}')
         buttons = ButtonMaker()
         if self.isLeech:
-                msg += f'<b>❂ Total files    : </b>{folders}\n'
+            msg += f'<b>❂ Total files    : </b>{folders}\n'
             if mime_type != 0:
                 msg += f'<b>❂ Corrupted files: </b>{mime_type}\n'
             msg += f'<b>❂ Leeched by     : </b>{self.tag}\n'
