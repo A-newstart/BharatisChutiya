@@ -82,11 +82,11 @@ async def start(client, message):
 
     buttons = ButtonMaker()
     reply_markup = buttons.build_menu(2)
-    #if len(message.command) > 1 and message.command[1] == "aeon":
+    if len(message.command) > 1 and message.command[1] == "aeon":
         #await deleteMessage(message)
         
    
-    if len(message.command) > 1 and message.command[1] == "pmc":
+    elif len(message.command) > 1 and message.command[1] == "pmc":
         await sendMessage(message, 'Bot started')
         await deleteMessage(message)
     elif len(message.command) > 1 and len(message.command[1]) == 36:
@@ -190,7 +190,7 @@ async def aeoncb(_, query):
             btn.ubutton('Web Paste', f"http://stashbin.xyz/{resp['data']['key']}")
             await query.edit_message_reply_markup(btn.build_menu(1))
     elif data[2] == "botpm":
-        await query.answer(url=f"https://t.me/{bot_name}")
+        await query.answer(url=f"https://t.me/bharath_boy")
     elif data[2] == "pmc":
         await query.answer(url=f"https://t.me/{bot_name}?start=pmc")
     else:
