@@ -10,6 +10,7 @@ from re import match as re_match
 from time import time
 from html import escape
 from uuid import uuid4
+from pyrogram.handlers import CallbackQueryHandler
 from subprocess import run as srun
 from asyncio import create_subprocess_exec, create_subprocess_shell, run_coroutine_threadsafe, sleep
 from asyncio.subprocess import PIPE
