@@ -190,7 +190,7 @@ async def aeoncb(_, query):
             btn.ubutton('Web Paste', f"http://stashbin.xyz/{resp['data']['key']}")
             await query.edit_message_reply_markup(btn.build_menu(1))
     elif data[2] == "botpm":
-        await query.answer(url=f"https://t.me/{bot_name}?starting=1")
+        await query.answer(url=f"https://t.me/{bot_name}?starting=aeon")
     elif data[2] == "pmc":
         await query.answer(url=f"https://t.me/{bot_name}?start=pmc")
     else:
