@@ -277,12 +277,12 @@ async def bot_help(client, message):
     
 async def thumb(client, query):
     await query.answer()
-        edit_mode = len(data) == 4
-        await update_user_settings(query, data[2], 'leech', edit_mode)
-        if not edit_mode: return
-        pfunc = partial(set_thumb, pre_event=query, key=data[2])
-        rfunc = partial(update_user_settings, query, data[2], 'leech')
-        await event_handler(client, query, pfunc, rfunc, True)
+    edit_mode = len(data) == 4
+    await update_user_settings(query, data[2], 'leech', edit_mode)
+    if not edit_mode: return
+    pfunc = partial(set_thumb, pre_event=query, key=data[2])
+    rfunc = partial(update_user_settings, query, data[2], 'leech')
+    await event_handler(client, query, pfunc, rfunc, True)
 
 
 async def restart_notification():
