@@ -202,7 +202,7 @@ async def user_settings(client, message):
    # if not ospath.exists(thumbpath):
        # thumbpath = 'IMAGES'
     thumbpath = 'IMAGES'
-    x = await sendMessage(message, msg, button, photo=thumbpath)
+    x = await sendMessage(message, msg, button, photo='IMAGES')
     await five_minute_del(message)
     await deleteMessage(x)
 
