@@ -583,11 +583,12 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
     await aioremove(photo_file)
 
     update_user_ldata(user_id, 'thumb', des_dir)
-    await message.delete()
-    await update_user_settings(pre_event, key, 'leech', msg=message, sdirect=direct)
     thumbpath = f"Thumbnails/{user_id}.jpg"
     msg = 'Thumbnail seved successfully.'
     await sendMessage(message, msg, button, photo=thumbpath)
+    await message.delete()
+    await update_user_settings(pre_event, key, 'leech', msg=message, sdirect=direct)
+    
 
     if DATABASE_URL:
         await DbManager().update_user_doc(user_id, 'thumb', des_dir)
