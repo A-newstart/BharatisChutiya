@@ -83,7 +83,7 @@ async def start(client, message):
     buttons = ButtonMaker()
     reply_markup = buttons.build_menu(2)
     if len(message.command) > 1 and message.command[1] == "aeon":
-        #await deleteMessage(message)
+        await deleteMessage(message)
         
    
     elif len(message.command) > 1 and message.command[1] == "pmc":
