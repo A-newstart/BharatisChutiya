@@ -333,7 +333,7 @@ async def main():
     bot.add_handler(MessageHandler(restart, filters=command(
         BotCommands.RestartCommand) & CustomFilters.sudo))
     bot.add_handler(MessageHandler(thumbcmds, filters=command(
-        BotCommands.thumbCommand) & CustomFilters.sudo))
+        BotCommands.ThumbCommand) & CustomFilters.sudo))
     bot.add_handler(MessageHandler(ping, filters=command(
         BotCommands.PingCommand) & CustomFilters.authorized))
     bot.add_handler(MessageHandler(bot_help, filters=command(
