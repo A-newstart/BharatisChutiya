@@ -575,7 +575,10 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
         photo = message.reply_to_message
         photo_file = await photo.download()
     else:
-        await message.reply("Please reply to a message with a photo.")
+        msg = 'Please reply to a message with a photo.'
+        thumbpath = f"Thumbnails/{user_id}.jpg"
+        #msg = 'Thumbnail seved successfully.'
+        await sendMessage(message, msg, photo=thumbpath)
         return
 
     des_dir = ospath.join(path, f'{user_id}.jpg')
@@ -585,7 +588,7 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
     update_user_ldata(user_id, 'thumb', des_dir)
     thumbpath = f"Thumbnails/{user_id}.jpg"
     msg = 'Thumbnail seved successfully.'
-    await sendMessage(message, msg, button, photo=thumbpath)
+    await sendMessage(message, msg, photo=thumbpath)
     await message.delete()
     await update_user_settings(pre_event, key, 'leech', msg=message, sdirect=direct)
     
