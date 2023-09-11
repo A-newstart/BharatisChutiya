@@ -221,7 +221,8 @@ def get_readable_message():
     if tasks <= STATUS_LIMIT:
         buttons = ButtonMaker()
         buttons.ibutton("BOT INFO", "stats")
-        button = buttons.build_menu(1)            
+        button = buttons.build_menu(1) 
+        
     if tasks > STATUS_LIMIT:
         buttons = ButtonMaker()
         buttons.ibutton("⌫", "status pre")
@@ -240,6 +241,40 @@ def get_readable_message():
     if remaining_time <= 3600:
         msg += f"\n<b>Bot Restarts In:</b> <code>{res_time}</code>"
     return msg, button
+    
+async def fstats(_, query):
+    cpup = cpu_percent(interval=1)
+    ramp = virtual_memory().percent
+    disk = disk_usage(config_dict["DOWNLOAD_DIR"]).percent
+    totl = len(download_dict)
+    traf = get_readable_file_size(net_io_counters().bytes_sent + net_io_counters().bytes_recv)
+    free = max(config_dict['QUEUE_ALL'] - totl, 0) if config_dict['QUEUE_ALL'] else '∞'
+    inqu, dwld, upld, splt, arch, extr, seed = [0] * 7
+    for download in download_dict.values():
+        status = download.status()
+        if status in MirrorStatus.STATUS_QUEUEDL or status in MirrorStatus.STATUS_QUEUEUP:
+            inqu += 1
+        elif status == MirrorStatus.STATUS_DOWNLOADING:
+            dwld += 1
+        elif status == MirrorStatus.STATUS_UPLOADING:
+            upld += 1
+        elif status == MirrorStatus.STATUS_SPLITTING:
+            splt += 1
+        elif status == MirrorStatus.STATUS_ARCHIVING:
+            arch += 1
+        elif status == MirrorStatus.STATUS_EXTRACTING:
+            extr += 1
+        elif status == MirrorStatus.STATUS_SEEDING:
+            seed += 1
+
+    stat = f'_______Bot Info_______\n\n'\
+           f'C: {cpup}% | R: {ramp}% | D: {disk}%\n\n' \
+           f'T  : {totl} | F  : {free} | Q : {inqu}\n' \
+           f'DL: {dwld} | UL: {upld} | SD: {seed}\n' \
+           f'ZP: {arch} | UZ: {extr} | SP: {splt}\n\n' \
+           f'Bandwidth Used: {traf}'
+    await query.answer(stat, show_alert=True)
+
 
 
 def text_size_to_bytes(size_text):
@@ -534,6 +569,7 @@ async def set_commands(client):
                 BotCommand(f'{BotCommands.RestartCommand[0]}', 'Restart bot')
             ]
         )
+bot.add_handler(CallbackQueryHandler(fstats, filters=regex("^stats")))
 
 def tiny(long_url):
     s = pyshorteners.Shortener()
