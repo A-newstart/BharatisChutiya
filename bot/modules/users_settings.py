@@ -562,9 +562,9 @@ async def edit_user_settings(client, query):
 async def thumbcmds(client, query, key=None, edit_mode=None):
     from_user = query.from_user
     user_id = from_user.id
-    message = query.message
+    #message = query.message
     data = query.data.split()
-    await query.answer()
+    #await query.answer()
     edit_mode = len(data) == 4
     await update_user_settings(query, data[2], 'leech', edit_mode)
     if not edit_mode: return
