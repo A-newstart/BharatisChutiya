@@ -45,8 +45,8 @@ fname_dict = {'rcc': 'RClone',
              'split_size': 'Leech Splits',
              }
 
-async def get_user_settings(query, from_user, key=None, edit_type=None, edit_mode=None):
-    from_user = query.from_user
+async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None):
+    #from_user = query.from_user
     user_id = from_user.id
     name = from_user.mention(style="html")
     buttons = ButtonMaker()
@@ -188,7 +188,12 @@ async def get_user_settings(query, from_user, key=None, edit_type=None, edit_mod
 
 
 async def update_user_settings(query, key=None, edit_type=None, edit_mode=None, msg=None, sdirect=False):
-    msg, button = await get_user_settings(msg.from_user if sdirect else query.from_user, key, edit_type, edit_mode)
+    #msg, button = await get_user_settings(msg.from_user if sdirect else query.from_user, key, edit_type, edit_mode)
+    if sdirect and isinstance(msg, Message):
+        msg, button = await get_user_settings(msg.from_user, key, edit_type, edit_mode)
+    else:
+        msg, button = await get_user_settings(query.from_user, key, edit_type, edit_mode)
+    
     user_id = query.from_user.id
     thumbpath = f"Thumbnails/{user_id}.jpg"
     if not ospath.exists(thumbpath):
@@ -580,9 +585,13 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
     update_user_ldata(user_id, 'thumb', des_dir)
     await message.delete()
     await update_user_settings(pre_event, key, 'leech', msg=message, sdirect=direct)
+    thumbpath = f"Thumbnails/{user_id}.jpg"
+    msg = 'Thumbnail seved successfully.'
+    await sendMessage(message, msg, button, photo=thumbpath)
 
     if DATABASE_URL:
         await DbManager().update_user_doc(user_id, 'thumb', des_dir)
+        
 
 async def getUserInfo(client, id):
     try:
