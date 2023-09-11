@@ -468,7 +468,7 @@ class MirrorLeechListener:
                     await sendMessage(self.botpmmsg, msg + lmsg + fmsg)
                 await deleteMessage(self.botpmmsg)
                 if self.isSuperGroup:
-                    btn.ibutton('View in inbox', f"{user_id} botpm", 'header')
+                    btn.ibutton('View in inbox', f"aeon {user_id} botpm", 'header')
                     btn = extra_btns(btn)
                     await sendMessage(self.message, msg + '<b>Files has been sent to your inbox</b>', btn.build_menu(1))
                 else:
@@ -529,7 +529,7 @@ class MirrorLeechListener:
             await sendMessage(self.botpmmsg, msg, button, self.random_pic)
             await deleteMessage(self.botpmmsg)
             if self.isSuperGroup:
-                buttons.ibutton('View in inbox', f"{user_id} botpm", 'header')
+                buttons.ibutton('View in inbox', f"aeon {user_id} botpm", 'header')
                 buttons = extra_btns(buttons)
                 await sendMessage(self.message, msg + '<b>Links has been sent to your inbox</b>', buttons.build_menu(1))
             else:
