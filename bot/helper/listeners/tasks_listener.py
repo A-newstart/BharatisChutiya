@@ -423,7 +423,7 @@ class MirrorLeechListener:
             msg += f'<code>❂ Total files    :</code>{folders}\n'
             if mime_type != 0:
                 msg += f'<code>❂ Corrupted files:</code>{mime_type}\n'
-        msg += f'<code>❂ Leeched by     :</code>{self.tag}\n'
+            msg += f'<code>❂ Leeched by     :</code>{self.tag}\n'
             msg += f'<code>❂ User ID        :</code><code>{self.message.from_user.id}</code>\n\n'
             if not files:
                 if self.isPrivate:
