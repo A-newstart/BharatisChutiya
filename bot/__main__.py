@@ -10,6 +10,7 @@ from base64 import b64decode
 from quoters import Quote
 from html import escape
 from cloudscraper import create_scraper
+from functools import partial
 
 from requests import get as rget
 from pytz import timezone
@@ -31,7 +32,7 @@ from .helper.telegram_helper.message_utils import sendMessage, editMessage, send
 from .helper.telegram_helper.filters import CustomFilters
 from .helper.telegram_helper.button_build import ButtonMaker
 from .helper.listeners.aria2_listener import start_aria2_listener
-from .modules import authorize, cancel_mirror, mirror_leech, status, torrent_search, torrent_select, ytdlp, rss, shell, eval, users_settings, bot_settings, speedtest, images, mediainfo, broadcast
+from .modules import authorize, cancel_mirror, mirror_leech, status, torrent_search, torrent_select, ytdlp, rss, shell, eval, users_settings, update_user_settings, bot_settings, speedtest, images, mediainfo, event_handler, broadcast, set_thumb
 from .helper.mirror_utils.gdrive_utils import count, delete, list, clone
 
 @new_thread
@@ -273,6 +274,15 @@ async def bot_help(client, message):
     reply_message = await sendMessage(message, help_string)
     await deleteMessage(message)
     await one_minute_del(reply_message)
+    
+async def thumb(client, query):
+    await query.answer()
+        edit_mode = len(data) == 4
+        await update_user_settings(query, data[2], 'leech', edit_mode)
+        if not edit_mode: return
+        pfunc = partial(set_thumb, pre_event=query, key=data[2])
+        rfunc = partial(update_user_settings, query, data[2], 'leech')
+        await event_handler(client, query, pfunc, rfunc, True)
 
 
 async def restart_notification():
@@ -328,6 +338,8 @@ async def main():
         BotCommands.LogCommand) & CustomFilters.sudo))
     bot.add_handler(MessageHandler(restart, filters=command(
         BotCommands.RestartCommand) & CustomFilters.sudo))
+    bot.add_handler(MessageHandler(thumb, filters=command(
+        BotCommands.thumbCommand) & CustomFilters.sudo))
     bot.add_handler(MessageHandler(ping, filters=command(
         BotCommands.PingCommand) & CustomFilters.authorized))
     bot.add_handler(MessageHandler(bot_help, filters=command(
