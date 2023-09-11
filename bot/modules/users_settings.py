@@ -558,6 +558,15 @@ async def edit_user_settings(client, query):
         await query.answer()
         await message.reply_to_message.delete()
         await message.delete()
+        
+async def thumbcmds(client, query, key=None, edit_mode=None):
+    await query.answer()
+    edit_mode = len(data) == 4
+    await update_user_settings(query, data[2], 'leech', edit_mode)
+    if not edit_mode: return
+    pfunc = partial(set_thumb, pre_event=query, key=data[2])
+    rfunc = partial(update_user_settings, query, data[2], 'leech')
+    await event_handler(client, query, pfunc, rfunc, True)
 
 async def getUserInfo(client, id):
     try:

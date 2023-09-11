@@ -32,7 +32,8 @@ from .helper.telegram_helper.message_utils import sendMessage, editMessage, send
 from .helper.telegram_helper.filters import CustomFilters
 from .helper.telegram_helper.button_build import ButtonMaker
 from .helper.listeners.aria2_listener import start_aria2_listener
-from .modules import authorize, cancel_mirror, mirror_leech, status, torrent_search, torrent_select, ytdlp, rss, shell, eval, users_settings, update_user_settings, bot_settings, speedtest, images, mediainfo, event_handler, broadcast, set_thumb
+from .modules import authorize, cancel_mirror, mirror_leech, status, torrent_search, torrent_select, ytdlp, rss, shell, eval, users_settings, bot_settings, speedtest, images, mediainfo, broadcast
+from .modules.users_settings import thumbcmds
 from .helper.mirror_utils.gdrive_utils import count, delete, list, clone
 
 @new_thread
@@ -275,14 +276,7 @@ async def bot_help(client, message):
     await deleteMessage(message)
     await one_minute_del(reply_message)
     
-async def thumb(client, query):
-    await query.answer()
-    edit_mode = len(data) == 4
-    await update_user_settings(query, data[2], 'leech', edit_mode)
-    if not edit_mode: return
-    pfunc = partial(set_thumb, pre_event=query, key=data[2])
-    rfunc = partial(update_user_settings, query, data[2], 'leech')
-    await event_handler(client, query, pfunc, rfunc, True)
+
 
 
 async def restart_notification():
