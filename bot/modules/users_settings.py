@@ -13,7 +13,7 @@ from io import BytesIO
 from asyncio import sleep
 
 from bot import OWNER_ID, bot, user_data, config_dict, DATABASE_URL, IS_PREMIUM_USER, MAX_SPLIT_SIZE
-from bot.helper.telegram_helper.message_utils import sendMessage, sendCustomMsg, editMessage, deleteMessage, sendFile, chat_info, user_info, five_minute_del
+from bot.helper.telegram_helper.message_utils import sendMessage, sendCustomMsg, editMessage, deleteMessage, sendFile, chat_info, user_info, five_minute_del, one_minute_del
 from bot.helper.mirror_utils.upload_utils.gdriveTools import GoogleDriveHelper
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.bot_commands import BotCommands
@@ -578,7 +578,9 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
         msg = 'Please reply to a message with a photo.'
         thumbpath = f"Thumbnails/{user_id}.jpg"
         #msg = 'Thumbnail seved successfully.'
-        await sendMessage(message, msg, photo=thumbpath)
+        b = await sendMessage(message, msg, photo=thumbpath)
+        await message.delete()
+        await one_minute_del(b)
         return
 
     des_dir = ospath.join(path, f'{user_id}.jpg')
@@ -588,8 +590,9 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
     update_user_ldata(user_id, 'thumb', des_dir)
     thumbpath = f"Thumbnails/{user_id}.jpg"
     msg = 'Thumbnail seved successfully.'
-    await sendMessage(message, msg, photo=thumbpath)
+    r = await sendMessage(message, msg, photo=thumbpath)
     await message.delete()
+    await one_minute_del(r)
     await update_user_settings(pre_event, key, 'leech', msg=message, sdirect=direct)
     
 
