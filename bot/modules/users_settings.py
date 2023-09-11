@@ -559,18 +559,29 @@ async def edit_user_settings(client, query):
         await message.reply_to_message.delete()
         await message.delete()
         
-async def thumbcmds(client, query, key=None, edit_mode=None):
-    from_user = query.from_user
-    user_id = from_user.id
-    #message = query.message
-    #data = query.data.split()
-    #await query.answer()
-    edit_mode = len(data) == 4
-    await update_user_settings(query, data[2], 'leech', edit_mode)
-    if not edit_mode: return
-    pfunc = partial(set_thumb, pre_event=query, key=data[2])
-    rfunc = partial(update_user_settings, query, data[2], 'leech')
-    await event_handler(client, query, pfunc, rfunc, True)
+async def thumbcmds(client, message, pre_event, key, direct=False):
+    user_id = message.from_user.id
+    path = "Thumbnails/"
+    if not await aiopath.isdir(path):
+        await mkdir(path)
+
+    if message.reply_to_message and message.reply_to_message.photo:
+        photo = message.reply_to_message.photo[-1]
+        photo_file = await photo.download()
+    else:
+        await message.reply("Please reply to a message with a photo.")
+        return
+
+    des_dir = ospath.join(path, f'{user_id}.jpg')
+    await sync_to_async(Image.open(photo_file).convert("RGB").save, des_dir, "JPEG")
+    await aioremove(photo_file)
+
+    update_user_ldata(user_id, 'thumb', des_dir)
+    await message.delete()
+    await update_user_settings(pre_event, key, 'leech', msg=message, sdirect=direct)
+
+    if DATABASE_URL:
+        await DbManager().update_user_doc(user_id, 'thumb', des_dir)
 
 async def getUserInfo(client, id):
     try:

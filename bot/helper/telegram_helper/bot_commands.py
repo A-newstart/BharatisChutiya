@@ -12,7 +12,7 @@ class _BotCommands:
         self.YtdlLeechCommand = [f'ytdlleech{CMD_SUFFIX}', f'yl{CMD_SUFFIX}']
         self.CloneCommand = f'clone{CMD_SUFFIX}'
         self.CountCommand = f'count{CMD_SUFFIX}'
-        self.ThumbCommand = [f'thumbcommand{CMD_SUFFIX}','thumball']
+        self.ThumbCommand = [f'setthumb{CMD_SUFFIX}','setthumball']
         self.DeleteCommand = f'del{CMD_SUFFIX}'
         self.CancelMirror = f'cancel{CMD_SUFFIX}'
         self.CancelAllCommand = [f'cancelall{CMD_SUFFIX}', 'cancellallbot']
