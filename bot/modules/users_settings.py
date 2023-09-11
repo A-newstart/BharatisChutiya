@@ -195,10 +195,11 @@ async def update_user_settings(query, key=None, edit_type=None, edit_mode=None, 
     await editMessage(query if sdirect else query.message, msg, button, photo=thumbpath)
     
     
-u_id = query.from_user.id
-    thumbpath = f"Thumbnails/{u_id}.jpg"
+user_id = query.from_user.id
+thumbpath = f"Thumbnails/{user_id}.jpg"
 if not ospath.exists(thumbpath):
-        thumbpath = 'IMAGES'
+    thumbpath = 'IMAGES'
+
         
 @new_thread
 async def user_settings(client, message):
