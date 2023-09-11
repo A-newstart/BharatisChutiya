@@ -53,10 +53,10 @@ async def stats(_, message):
         'User tasks': config_dict.get('USER_MAX_TASKS', '∞'),
     }
     system_info = f'<b>{quote}</b>\n\n'\
-        f'<code>❅ Bot uptime :</code> {currentTime}\n'\
-        f'<code>❅ Sys uptime :</code> {osUptime}\n'\
-        f'<code>❅ CPU usage  :</code> {cpuUsage}%\n'\
-        f'<code>❅ RAM usage  :</code> {memory.percent}%\n'\
+        f'<code>❂ Bot uptime :</code> {currentTime}\n'\
+        f'<code>❂ Sys uptime :</code> {osUptime}\n'\
+        f'<code>❂ CPU usage  :</code> {cpuUsage}%\n'\
+        f'<code>❂ RAM usage  :</code> {memory.percent}%\n'\
             
     limitations = f'<b>LIMITATIONS</b>\n\n'
     
@@ -67,7 +67,7 @@ async def stats(_, message):
             v = f'{v}GB/Link'
         else:
             v = f'{v} Tasks/user'
-        limitations += f'<code>❅ {k:<11}:</code> {v}\n'
+        limitations += f'<code>❂ {k:<11}:</code> {v}\n'
 
     stats = system_info + limitations
     reply_message = await sendMessage(message, stats, photo='IMAGES')
@@ -188,7 +188,7 @@ async def aeoncb(_, query):
             btn.ubutton('Web Paste', f"http://stashbin.xyz/{resp['data']['key']}")
             await query.edit_message_reply_markup(btn.build_menu(1))
     elif data[2] == "botpm":
-        await query.answer(url=f"https://t.me/{bot_name}?start=aeon")
+        await query.answer(url=f"https://t.me/{bot_name}")
     elif data[2] == "pmc":
         await query.answer(url=f"https://t.me/{bot_name}?start=pmc")
     else:
