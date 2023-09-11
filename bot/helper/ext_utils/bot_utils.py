@@ -173,41 +173,41 @@ def get_readable_message():
         msg += f"<b>{download.status()}...</b>"
         if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
             msg += f"\n{get_progress_bar_string(download.progress())} » {download.progress()}"
-            '''msg += f"\n\n⌑ Progress: {download.processed_bytes()} of {download.size()}"
-            msg += f"\n⌑ User: {source(download)}"
-            msg += f"\n⌑ Speed: {download.speed()}"
-            msg += f"\n⌑ Estimated: {download.eta()}"'''
-            msg += f"\n⌑ <code>Progress </code>»{download.processed_bytes()} of {download.size()}"
-            msg += f"\n⌑ <code>Speed    </code>»{download.speed()}"
-            msg += f"\n⌑ <code>User     </code>»{source(download)}"
-            msg += f"\n⌑ <code>ETA      </code>»{download.eta()}"
-            #msg += f"\n⌑ <code>Active   </code>» {get_readable_time(time() - self.message.date.timestamp())}"#{get_readable_time(elapsed)}"
-           # msg += f"\n⌑ <code>Engine   </code>» {download.engine}"
+            '''msg += f"\n\n❂ Progress: {download.processed_bytes()} of {download.size()}"
+            msg += f"\n❂ User: {source(download)}"
+            msg += f"\n❂ Speed: {download.speed()}"
+            msg += f"\n❂ Estimated: {download.eta()}"'''
+            msg += f"\n❂ <code>Progress </code>»{download.processed_bytes()} of {download.size()}"
+            msg += f"\n❂ <code>Speed    </code>»{download.speed()}"
+            msg += f"\n❂ <code>User     </code>»{source(download)}"
+            msg += f"\n❂ <code>ETA      </code>»{download.eta()}"
+            #msg += f"\n❂ <code>Active   </code>» {get_readable_time(time() - self.message.date.timestamp())}"#{get_readable_time(elapsed)}"
+           # msg += f"\n❂ <code>Engine   </code>» {download.engine}"
 
             if hasattr(download, 'playList'):
                 try:
                     if playlist:=download.playList():
-                        msg += f"\n⌑ <code>YT Count </code>» {playlist}"
+                        msg += f"\n❂ <code>YT Count </code>» {playlist}"
                 except:
                     pass
 
             if hasattr(download, 'seeders_num'):
                 try:
-                    msg += f"\n⌑ <code>Seeders  </code>» {download.seeders_num()}"
-                    msg += f"\n⌑ <code>Leechers </code>» {download.leechers_num()}"
+                    msg += f"\n❂ <code>Seeders  </code>» {download.seeders_num()}"
+                    msg += f"\n❂ <code>Leechers </code>» {download.leechers_num()}"
                 except:
                     pass
         elif download.status() == MirrorStatus.STATUS_SEEDING:
-            msg += f"\n⌑ <code>Size     </code>» {download.size()}"
-            msg += f"\n⌑ <code>Speed    </code>» {download.upload_speed()}"
-            msg += f"\n⌑ <code>Uploaded </code>» {download.uploaded_bytes()}"
-            msg += f"\n⌑ <code>Ratio    </code>» {download.ratio()}"
-            msg += f"\n⌑ <code>Time     </code>» {download.seeding_time()}"
+            msg += f"\n❂ <code>Size     </code>» {download.size()}"
+            msg += f"\n❂ <code>Speed    </code>» {download.upload_speed()}"
+            msg += f"\n❂ <code>Uploaded </code>» {download.uploaded_bytes()}"
+            msg += f"\n❂ <code>Ratio    </code>» {download.ratio()}"
+            msg += f"\n❂ <code>Time     </code>» {download.seeding_time()}"
         else:
-            msg += f"\n⌑ <code>Size     </code>» {download.size()}"
-            msg += f"\n⌑ <code>Elapsed  </code>»{get_readable_time(time() - download.message.date.timestamp())}"
-            msg += f"\n⌑ <code>Mode     </code>»{download.upload_details['mode']}"
-            msg += f"\n⌑ <code>cancel   </code>» /{BotCommands.CancelMirror}_{download.gid()[:8]}\n\n"
+            msg += f"\n❂ <code>Size     </code>» {download.size()}"
+            msg += f"\n❂ <code>Elapsed  </code>»{get_readable_time(time() - download.message.date.timestamp())}"
+            msg += f"\n❂ <code>Mode     </code>»{download.upload_details['mode']}"
+            msg += f"\n❂ <code>cancel   </code>» /{BotCommands.CancelMirror}_{download.gid()[:8]}\n\n"
     if len(msg) == 0:
         return None, None
     dl_speed = 0
