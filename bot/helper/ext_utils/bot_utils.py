@@ -560,7 +560,7 @@ async def set_commands(client):
                 BotCommand(f'{BotCommands.ListCommand}', 'Search in Drive'),
                 BotCommand(f'{BotCommands.SearchCommand}', 'Search in Torrent'),
                 BotCommand(f'{BotCommands.UserSetCommand[0]}', 'Users settings'),
-                BotCommand(f'{BotCommands.TumbCommand}','Reply to image to set thumb.'),
+                BotCommand(f'{BotCommands.ThumbCommand}','Reply to image to set thumb.'),
                 BotCommand(f'{BotCommands.HelpCommand}', 'Get detailed help'),
                 BotCommand(f'{BotCommands.BotSetCommand}', 'Open Bot settings'),
                 BotCommand(f'{BotCommands.LogCommand}', 'View log'),
