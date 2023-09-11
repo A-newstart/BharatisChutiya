@@ -76,17 +76,17 @@ async def stats(_, message):
 
 @new_thread
 async def start(client, message):
-    if message.chat.type == 'group':
+    if message.chat.type == 'supergroup':
         await sendMessage(message, 'Please use me bot in private, not in a group.', photo='IMAGES')
         return
 
     buttons = ButtonMaker()
     reply_markup = buttons.build_menu(2)
-    if len(message.command) > 1 and message.command[1] == "aeon":
+    #if len(message.command) > 1 and message.command[1] == "aeon":
         #await deleteMessage(message)
-        continue
+        
    
-    elif len(message.command) > 1 and message.command[1] == "pmc":
+    if len(message.command) > 1 and message.command[1] == "pmc":
         await sendMessage(message, 'Bot started')
         await deleteMessage(message)
     elif len(message.command) > 1 and len(message.command[1]) == 36:
