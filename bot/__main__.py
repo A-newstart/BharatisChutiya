@@ -76,6 +76,10 @@ async def stats(_, message):
 
 @new_thread
 async def start(client, message):
+    if message.chat.type == 'group':
+        await sendMessage(message, 'Please use me bot in private, not in a group.', photo='IMAGES')
+        return
+
     buttons = ButtonMaker()
     reply_markup = buttons.build_menu(2)
     if len(message.command) > 1 and message.command[1] == "aeon":
