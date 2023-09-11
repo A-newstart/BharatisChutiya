@@ -195,15 +195,16 @@ async def update_user_settings(query, key=None, edit_type=None, edit_mode=None, 
     await editMessage(query if sdirect else query.message, msg, button, photo=thumbpath)
     
     
-user_id = query.from_user.id
-thumbpath = f"Thumbnails/{user_id}.jpg"
-if not ospath.exists(thumbpath):
-    thumbpath = 'IMAGES'
 
         
 @new_thread
-async def user_settings(client, message):
+async def user_settings(query, client, message):
     msg, button = await get_user_settings(message.from_user)
+    user_id = query.from_user.id
+    thumbpath = f"Thumbnails/{user_id}.jpg"
+    if not ospath.exists(thumbpath):
+        thumbpath = 'IMAGES'
+
     x = await sendMessage(message, msg, button, photo=thumbpath)
     await five_minute_del(message)
     await deleteMessage(x)
