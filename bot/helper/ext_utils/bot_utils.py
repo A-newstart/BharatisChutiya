@@ -24,6 +24,7 @@ from mega import MegaApi
 from pyrogram.enums import ChatType
 from pyrogram.types import BotCommand
 from pyrogram.errors import PeerIdInvalid
+from pyrogram.filters import regex
 
 from bot.helper.ext_utils.db_handler import DbManager
 from bot import bot, OWNER_ID, bot_name, DATABASE_URL, LOGGER, get_client, aria2, download_dict, download_dict_lock, botStartTime, user_data, config_dict, bot_loop, extra_buttons, user
