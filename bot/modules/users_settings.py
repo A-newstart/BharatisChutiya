@@ -559,7 +559,7 @@ async def edit_user_settings(client, query):
         await message.reply_to_message.delete()
         await message.delete()
         
-async def thumbcmds(client, message, pre_event, key, direct=False):
+async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
     user_id = message.from_user.id
     path = "Thumbnails/"
     if not await aiopath.isdir(path):
