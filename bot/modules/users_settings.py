@@ -205,7 +205,7 @@ async def user_settings(query, client, message, msg=None, sdirect=False):
     if not ospath.exists(thumbpath):
         thumbpath = 'IMAGES'
 
-    x = await sendMessage(query if sdirect else query.message,, msg, button, photo=thumbpath)
+    x = await sendMessage(query if sdirect else query.message, msg, button, photo=thumbpath)
     #await five_minute_del(message)
     await deleteMessage(x)
 
