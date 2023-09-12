@@ -592,6 +592,7 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
     msg = 'Thumbnail seved successfully.'
     r = await sendMessage(message, msg, photo=thumbpath)
     await message.delete()
+    await photo.delete()
     await one_minute_del(r)
     await update_user_settings(pre_event, key, 'leech', msg=message, sdirect=direct)
     
