@@ -575,9 +575,11 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
         photo = message.reply_to_message
         photo_file = await photo.download()
     else:
-        msg = 'Please reply to a message with a photo.'
+        
         thumbpath = f"Thumbnails/{user_id}.jpg"
-        #msg = 'Thumbnail seved successfully.'
+        msg = 'Thumbnail seved successfully.'
+        thumbmsg = "Exists" if await aiopath.exists(thumbpath) else "Not Exists"
+        msg = f'Previous Thumb : {thumbmsg}\n\nPlease reply to a message with a photo.'
         b = await sendMessage(message, msg, photo=thumbpath)
         await message.delete()
         await one_minute_del(b)
@@ -589,7 +591,8 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
 
     update_user_ldata(user_id, 'thumb', des_dir)
     thumbpath = f"Thumbnails/{user_id}.jpg"
-    msg = 'Thumbnail seved successfully.'
+    name = user_id.mention(style="html")
+    msg = f'Thumbnail seved successfully\n\nFor {name} Usersetting.'
     r = await sendMessage(message, msg, photo=thumbpath)
     await message.delete()
     await photo.delete()
