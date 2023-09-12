@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from datetime import datetime
+from pyrogram import User
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from pyrogram.filters import command, regex, create
 from aiofiles import open as aiopen
@@ -591,7 +592,8 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
 
     update_user_ldata(user_id, 'thumb', des_dir)
     thumbpath = f"Thumbnails/{user_id}.jpg"
-    name = user_id.mention(style="html")
+    user = await User.get_user(user_id)
+    name = user.mention(style="html")
     msg = f'Thumbnail seved successfully\n\nFor {name} Usersetting.'
     r = await sendMessage(message, msg, photo=thumbpath)
     await message.delete()
