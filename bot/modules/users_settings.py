@@ -592,7 +592,7 @@ async def thumbcmds(client, message, pre_event=False, key=None, direct=False):
     update_user_ldata(user_id, 'thumb', des_dir)
     thumbpath = f"Thumbnails/{user_id}.jpg"
     user = message.from_user.first_name
-    name = user.mention(style="html")
+    name = f"<a href='tg://user?id={user_id}'>{user}</a>"
     msg = f'Thumbnail seved successfully\n\nFor {name} Usersetting.'
     r = await sendMessage(message, msg, photo=thumbpath)
     await message.delete()
