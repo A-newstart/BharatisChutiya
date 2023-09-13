@@ -177,7 +177,7 @@ def get_readable_message():
             msg += f"\n❂ User: {source(download)}"
             msg += f"\n❂ Speed: {download.speed()}"
             msg += f"\n❂ Estimated: {download.eta()}"'''
-            msg += f"\n❂ <code>Done    </code>»{download.processed_bytes()} {download.size()}"
+            msg += f"\n❂ <code>Done    </code>»{download.processed_bytes()}/{download.size()}"
             msg += f"\n❂ <code>Speed   </code>»{download.speed()}"
             msg += f"\n❂ <code>User    </code>»{source(download)}"
             msg += f"\n❂ <code>ETA     </code>»{download.eta()}"
@@ -232,7 +232,7 @@ def get_readable_message():
         button = buttons.build_menu(3)
 
    # msg += "\n\n\n──────────────────────"    
-    msg += "\n\n───<u>JOIN NOW : <a href='https://t.me/POWERLEECH'> <u>POWER LEECH</u></a></u>───     "
+    msg += "\n\n➤JOIN NOW : <a href='https://t.me/POWERLEECH'> POWER LEECH</u></a>     "
    # msg += "\n──────────────────────"
     msg += f"\n\n <b>DISK</b>: <code>{get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}</code>"
     msg += f" | <b>UPTM</b>: <code>{get_readable_time(time() - botStartTime)}</code>"
