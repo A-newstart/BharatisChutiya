@@ -205,9 +205,9 @@ def get_readable_message():
             msg += f"\n❂ <code>Time     </code>» {download.seeding_time()}"
         else:
             msg += f"\n❂ <code>Size     </code>» {download.size()}"
-            msg += f"\n❂ <code>Elapsed  </code>»{get_readable_time(time() - download.message.date.timestamp())}"
-            msg += f"\n❂ <code>Mode     </code>»{download.upload_details['mode']}"
-            msg += f"\n❂ <code>cancel   </code>» /{BotCommands.CancelMirror}_{download.gid()[:8]}\n\n"
+        msg += f"\n❂ <code>Elapsed  </code>»{get_readable_time(time() - download.message.date.timestamp())}"
+        msg += f"\n❂ <code>Mode     </code>»{download.upload_details['mode']}"
+        msg += f"\n❂ <code>cancel   </code>» /{BotCommands.CancelMirror}_{download.gid()[:8]}"
     if len(msg) == 0:
         return None, None
     dl_speed = 0
