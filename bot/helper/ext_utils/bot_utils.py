@@ -232,9 +232,9 @@ def get_readable_message():
         button = buttons.build_menu(3)
 
    # msg += "\n\n\n──────────────────────"    
-    msg += "\n\n   <u>JOIN NOW : <a href='https://t.me/POWERLEECH'> POWER LEECH</a></u>        "
+    msg += "\n\n───<u>JOIN NOW : <a href='https://t.me/POWERLEECH'> <u>POWER LEECH</u></a></u>───     "
    # msg += "\n──────────────────────"
-    msg += f"\n <b>DISK</b>: <code>{get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}</code>"
+    msg += f"\n\n <b>DISK</b>: <code>{get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}</code>"
     msg += f" | <b>UPTM</b>: <code>{get_readable_time(time() - botStartTime)}</code>"
     msg += f"\n <b>DL</b>: <code>{get_readable_file_size(dl_speed)}/s</code>"
     msg += f"  |  <b>UL</b>: <code>{get_readable_file_size(up_speed)}/s</code>"
