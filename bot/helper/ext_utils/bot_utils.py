@@ -146,9 +146,9 @@ def get_progress_bar_string(pct):
     if isinstance(pct, str):
         pct = float(pct.strip('%'))
     p = min(max(pct, 0), 100)
-    cFull = int(p * 15 / 100)
+    cFull = int(p * 13 / 100)
     p_str = '▰' * cFull
-    p_str += '▱' * (15 - cFull)
+    p_str += '▱' * (13 - cFull)
     return f"{p_str}"
     
 def source(self):
@@ -204,10 +204,10 @@ def get_readable_message():
             msg += f"\n❂ <code>Ratio    </code>» {download.ratio()}"
             msg += f"\n❂ <code>Time     </code>» {download.seeding_time()}"
         else:
-            msg += f"\n❂ <code>Size     </code>» {download.size()}"
+            msg += f"\n❂ <code>Size     </code>»{download.size()}"
         msg += f"\n❂ <code>Elapsed  </code>»{get_readable_time(time() - download.message.date.timestamp())}"
         msg += f"\n❂ <code>Mode     </code>»{download.upload_details['mode']}"
-        msg += f"\n❂ <code>cancel   </code>» /{BotCommands.CancelMirror}_{download.gid()[:8]}"
+        msg += f"\n❂ <code>cancel   </code>»/{BotCommands.CancelMirror}_{download.gid()[:8]}"
     if len(msg) == 0:
         return None, None
     dl_speed = 0
